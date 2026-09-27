@@ -36,6 +36,6 @@ const filterMatkulUnggulan = (data, minSks) => {
   return hasil;
 };
 
-console.log("=== DATA SELURUH MATA KULIAH ===", daftarMatkul);
-console.log("\n--- REKAPITULASI TOTAL AKADEMIK ---", hitungAkademik(daftarMatkul));
-console.log("\n--- MATA KULIAH UNGGULAN (SKS >= 3 DAN NILAI A/AB) ---", filterMatkulUnggulan(daftarMatkul, 3));
+console.log("--- DATA SELURUH MATA KULIAH ---", daftarMatkul);
+console.log("\n--- PERHITUNGAN TOTAL AKADEMIK ---", hitungAkademik(daftarMatkul));
+console.log("\n--- MATA KULIAH UNGGULAN ---", filterMatkulUnggulan(daftarMatkul, 3));
