@@ -1,126 +1,114 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tugas Profil Pribadi</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <h1>Profil Pribadi</h1>
-    <p>Hi, nama saya Marchelius Amsal. <br>Saya adalah mahasiswa program studi Sistem dan Teknologi Informasi.</p>
+    <div class="main-card">
+        <header class="header-section">
+            <h1 class="title">PROFIL PRIBADI</h1>
+            <p class="subtitle">Hi, nama saya <span style="color: rgb(37, 134, 230); font-style:italic;">Marchelius Amsal</span>. Saya adalah mahasiswa program studi Sistem dan Teknologi Informasi.</p>
+        </header>
 
-    <hr>
+        <section class="bio-section">
+            <h2>Data Diri</h2>
+            <div class="bio-grid">
+                <div class="bio-item">
+                    <span>Nama Lengkap</span>
+                    <strong>Marchelius Amsal</strong>
+                </div>
+                <div class="bio-item">
+                    <span>NBI</span>
+                    <strong>1482500033</strong>
+                </div>
+                <div class="bio-item">
+                    <span>Program Studi</span>
+                    <strong>Sistem dan Teknologi Informasi</strong>
+                </div>
+            </div>
+        </section>
 
-    <h2>Data Diri</h2>
-    <table cellpadding="5" cellspacing="0">
-        <tr>
-            <td><b>Nama Lengkap </b></td>
-            <td>Marchelius Amsal</td>
-        </tr>
-        <tr>
-            <td><b>NBI </b></td>
-            <td>1482500033</td>
-        </tr>
-        <tr>
-            <td><b>Program Studi</b></td>
-            <td>Sistem dan Teknologi Informasi</td>
-        </tr>
-    </table>
+        <section class="matkul-section">
+            <h2>Daftar Mata Kuliah</h2>
 
-    <br>
+            <div class="controls-wrapper">
+                <div class="search-box">
+                    <i class="bi bi-search search-icon"></i>
+                    <input type="text" id="input-cari" class="custom-input" placeholder="Cari mata kuliah...">
+                </div>
+                <div class="sort-box">
+                    <select id="select-urut" class="custom-select">
+                        <option value="">Urutkan berdasarkan</option>
+                        <option value="sks">SKS (Tertinggi)</option>
+                        <option value="nilai">Nilai (Huruf)</option>
+                        <option value="nk">N.K. (Tertinggi)</option>
+                    </select>
+                </div>
+            </div>
 
-    <table class="table table-bordered table-striped table-hover">
-        <thead class="table-info">
-            <tr>
-                <th>No.</th>
-                <th>Nama Matakuliah</th>
-                <th>Semester</th>
-                <th>SKS</th>
-                <th>Nilai</th>
-                <th>N.K.</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>1.</td>
-                <td>ARSITEKTUR DAN ORGANISASI KOMPUTER</td>
-                <td>2</td>
-                <td>2</td>
-                <td>AB</td>
-                <td>7.00</td>
-            </tr>
-            <tr>
-                <td>2.</td>
-                <td>ALGORITMA DAN STRUKTUR DATA</td>
-                <td>2</td>
-                <td>3</td>
-                <td>AB</td>
-                <td>10.50</td>
-            </tr>
-            <tr>
-                <td>3.</td>
-                <td>SISTEM BASIS DATA</td>
-                <td>2</td>
-                <td>3</td>
-                <td>AB</td>
-                <td>10.50</td>
-            </tr>
-            <tr>
-                <td>4.</td>
-                <td>INTERAKSI MANUSIA KOMPUTER</td>
-                <td>2</td>
-                <td>3</td>
-                <td>B</td>
-                <td>9.00</td>
-            </tr>
-            <tr>
-                <td>5.</td>
-                <td>TEKNOLOGI INFORMASI DAN APLIKASI BISNIS BERKEMBANG</td>
-                <td>2</td>
-                <td>3</td>
-                <td>B</td>
-                <td>9.00</td>
-            </tr>
-            <tr>
-                <td>6.</td>
-                <td>PEMROGRAMAN BERORIENTASI OBJEK</td>
-                <td>2</td>
-                <td>4</td>
-                <td>AB</td>
-                <td>14.00</td>
-            </tr>
-            <tr>
-                <td>7.</td>
-                <td>STATISTIKA DAN PROBABILITAS</td>
-                <td>2</td>
-                <td>2</td>
-                <td>A</td>
-                <td>8.00</td>
-            </tr>
-        </tbody>
-    </table>
+            <div id="container-tabel"></div>
+        </section>
 
-    <br>
-    <hr>
+        <section class="form-section">
+            <h2>Tambah Mata Kuliah Baru</h2>
+            <form id="form-matkul" class="custom-form">
+                <div id="pesan-error" class="alert-box alert-error d-none">
+                    Mohon isi semua kolom dengan benar.
+                </div>
+                <div id="pesan-sukses" class="alert-box alert-success d-none">
+                    Mata kuliah berhasil ditambahkan.
+                </div>
 
-    <h2>Hobi</h2>
-    <ul>
-        <li>Menggambar dan desain grafis</li>
-        <li>Mendengarkan musik</li>
-    </ul>
+                <div class="form-group">
+                    <label for="input-nama">Nama Mata Kuliah</label>
+                    <input type="text" id="input-nama" class="custom-input">
+                </div>
 
-    <hr>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="input-semester">Semester</label>
+                        <input type="number" id="input-semester" class="custom-input" min="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="input-sks">SKS</label>
+                        <input type="number" id="input-sks" class="custom-input" min="1">
+                    </div>
+                </div>
 
-    <footer style="text-align: center;">
-        <p>Copyright &copy; 2026 Marchelius Amsal.</p>
-    </footer>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="input-nilai">Nilai Huruf</label>
+                        <input type="text" id="input-nilai" class="custom-input" placeholder="A, AB, B, dll.">
+                    </div>
+                    <div class="form-group">
+                        <label for="input-nk">Nilai Kredit (N.K.)</label>
+                        <input type="number" id="input-nk" class="custom-input" step="0.01">
+                    </div>
+                </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous">
-    </script>
+                <button type="submit" class="btn-blue">Simpan Mata Kuliah</button>
+            </form>
+        </section>
+
+        <section class="hobi-section">
+            <h2>Keterangan</h2>
+            <ul class="hobi-list">
+                <li>Saya membuat website profil pribadi ini menggunakan HTML untuk menyusun struktur halaman, CSS dan framework Bootstrap untuk membuat tampilan dengan visual yang menarik, serta JavaScript untuk menghadirkan fitur interaktif. Pada bagian data mata kuliah, JavaScript bekerja secara dinamis untuk menampilkan data dari array ke dalam tabel, memvalidasi dan menambahkan data baru melalui form, memfilter pencarian nama mata kuliah secara realtime, mengurutkan tabel berdasarkan SKS, Nilai, maupun N.K., serta menyediakan opsi untuk menghapus data.</li>
+            </ul>
+        </section>
+
+        <footer class="footer">
+            <p>Copyright &copy; 2026 Marchelius Amsal.</p>
+        </footer>
+    </div>
+
     <script src="script.js"></script>
 </body>
 

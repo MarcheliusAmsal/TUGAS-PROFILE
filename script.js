@@ -1,4 +1,4 @@
-const daftarMatkul = [
+let daftarMatkul = [
   { nama: "ARSITEKTUR DAN ORGANISASI KOMPUTER", semester: 2, sks: 2, nilai: "AB", nk: 7.00 },
   { nama: "ALGORITMA DAN STRUKTUR DATA", semester: 2, sks: 3, nilai: "AB", nk: 10.50 },
   { nama: "SISTEM BASIS DATA", semester: 2, sks: 3, nilai: "AB", nk: 10.50 },
@@ -8,34 +8,133 @@ const daftarMatkul = [
   { nama: "STATISTIKA DAN PROBABILITAS", semester: 2, sks: 2, nilai: "A", nk: 8.00 }
 ];
 
-const hitungAkademik = (data) => {
-  let totalSKS = 0;
-  let totalNK = 0;
+const containerTabel = document.getElementById("container-tabel");
+const formMatkul = document.getElementById("form-matkul");
+const inputCari = document.getElementById("input-cari");
+const selectUrut = document.getElementById("select-urut");
 
-  for (const matkul of data) {
-    totalSKS += matkul.sks;
-    totalNK += matkul.nk;
-  }
+const bobotNilai = { "A": 4, "AB": 3.5, "B": 3, "BC": 2.5, "C": 2, "D": 1, "E": 0 };
 
-  return {
-    totalSKS,
-    totalNK,
-    ipk: totalSKS > 0 ? parseFloat((totalNK / totalSKS).toFixed(2)) : 0
-  };
-};
-
-const filterMatkulUnggulan = (data, minSks) => {
-  const hasil = [];
-
-  data.forEach(matkul => {
-    if (matkul.sks >= minSks && (matkul.nilai === "A" || matkul.nilai === "AB")) {
-      hasil.push(matkul);
+const renderTabel = (data) => {
+    if (data.length === 0) {
+        containerTabel.innerHTML = `<p class="text-center text-muted my-4">Data mata kuliah tidak ditemukan.</p>`;
+        return;
     }
-  });
 
-  return hasil;
+    let barisTabel = '';
+    data.forEach((matkul, index) => {
+        barisTabel += `
+            <tr class="baris-matkul">
+                <td>${index + 1}.</td>
+                <td class="nama-matkul">${matkul.nama}</td>
+                <td>${matkul.semester}</td>
+                <td>${matkul.sks}</td>
+                <td>${matkul.nilai}</td>
+                <td>${matkul.nk.toFixed(2)}</td>
+                <td class="text-center">
+                    <button class="btn-delete" onclick="hapusMatkul(${index})" title="Hapus">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        `;
+    });
+
+    const strukturTabel = `
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Nama Matakuliah</th>
+                    <th>Semester</th>
+                    <th>SKS</th>
+                    <th>Nilai</th>
+                    <th>N.K.</th>
+                    <th class="text-center">Aksi</th>
+                </tr>
+            </thead>
+            <tbody id="body-tabel">
+                ${barisTabel}
+            </tbody>
+        </table>
+    `;
+
+    containerTabel.innerHTML = strukturTabel;
 };
 
-console.log("--- DATA SELURUH MATA KULIAH ---", daftarMatkul);
-console.log("\n--- PERHITUNGAN TOTAL AKADEMIK ---", hitungAkademik(daftarMatkul));
-console.log("\n--- MATA KULIAH UNGGULAN ---", filterMatkulUnggulan(daftarMatkul, 3));
+window.hapusMatkul = (index) => {
+    daftarMatkul.splice(index, 1);
+    renderTabel(daftarMatkul);
+    inputCari.value = '';
+};
+
+renderTabel(daftarMatkul);
+
+formMatkul.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const inputNama = document.getElementById("input-nama").value.trim();
+    const inputSemester = parseInt(document.getElementById("input-semester").value);
+    const inputSks = parseInt(document.getElementById("input-sks").value);
+    const inputNilai = document.getElementById("input-nilai").value.trim().toUpperCase();
+    const inputNk = parseFloat(document.getElementById("input-nk").value);
+
+    const pesanError = document.getElementById("pesan-error");
+    const pesanSukses = document.getElementById("pesan-sukses");
+
+    pesanError.classList.add("d-none");
+    pesanSukses.classList.add("d-none");
+
+    if (!inputNama || isNaN(inputSemester) || isNaN(inputSks) || !inputNilai || isNaN(inputNk)) {
+        pesanError.classList.remove("d-none");
+        return;
+    }
+
+    const matkulBaru = {
+        nama: inputNama,
+        semester: inputSemester,
+        sks: inputSks,
+        nilai: inputNilai,
+        nk: inputNk
+    };
+
+    daftarMatkul.push(matkulBaru);
+    renderTabel(daftarMatkul);
+
+    pesanSukses.classList.remove("d-none");
+    formMatkul.reset();
+    
+    setTimeout(() => {
+        pesanSukses.classList.add("d-none");
+    }, 3000);
+});
+
+inputCari.addEventListener("input", function(event) {
+    const kataKunci = event.target.value.toLowerCase();
+    const semuaBaris = document.querySelectorAll(".baris-matkul");
+
+    semuaBaris.forEach(baris => {
+        const teksNamaMatkul = baris.querySelector(".nama-matkul").textContent.toLowerCase();
+        if (teksNamaMatkul.includes(kataKunci)) {
+            baris.classList.remove("d-none");
+        } else {
+            baris.classList.add("d-none");
+        }
+    });
+});
+
+selectUrut.addEventListener("change", function(event) {
+    const pilihan = event.target.value;
+    let dataTerurut = [...daftarMatkul];
+
+    if (pilihan === "sks") {
+        dataTerurut.sort((a, b) => b.sks - a.sks);
+    } else if (pilihan === "nilai") {
+        dataTerurut.sort((a, b) => (bobotNilai[b.nilai] || 0) - (bobotNilai[a.nilai] || 0));
+    } else if (pilihan === "nk") {
+        dataTerurut.sort((a, b) => b.nk - a.nk);
+    }
+
+    renderTabel(dataTerurut);
+    inputCari.value = '';
+});
