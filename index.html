@@ -59,11 +59,11 @@
         <section class="form-section">
             <h2>Tambah Mata Kuliah Baru</h2>
             <form id="form-matkul" class="custom-form">
-                <div id="pesan-error" class="alert-box alert-error d-none">
-                    Mohon isi semua kolom dengan benar.
+                <div id="pesan-error" class="alert-box alert-error" style="display: none;">
+                    <i class="bi bi-exclamation-circle-fill"></i> Mohon isi semua kolom dengan benar.
                 </div>
-                <div id="pesan-sukses" class="alert-box alert-success d-none">
-                    Mata kuliah berhasil ditambahkan.
+                <div id="pesan-sukses" class="alert-box alert-success" style="display: none;">
+                    <i class="bi bi-check-circle-fill"></i> Mata kuliah berhasil ditambahkan.
                 </div>
 
                 <div class="form-group">
@@ -109,6 +109,7 @@
         </footer>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="script.js"></script>
 </body>
 

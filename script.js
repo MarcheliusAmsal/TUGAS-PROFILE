@@ -79,14 +79,18 @@ formMatkul.addEventListener("submit", function(event) {
     const inputNilai = document.getElementById("input-nilai").value.trim().toUpperCase();
     const inputNk = parseFloat(document.getElementById("input-nk").value);
 
-    const pesanError = document.getElementById("pesan-error");
-    const pesanSukses = document.getElementById("pesan-sukses");
+    const pesanError = $("#pesan-error");
+    const pesanSukses = $("#pesan-sukses");
 
-    pesanError.classList.add("d-none");
-    pesanSukses.classList.add("d-none");
+    // Sembunyikan pesan error dan sukses di awal validasi menggunakan jQuery hide()
+    pesanError.hide().removeClass("shake-animation");
+    pesanSukses.hide();
 
     if (!inputNama || isNaN(inputSemester) || isNaN(inputSks) || !inputNilai || isNaN(inputNk)) {
-        pesanError.classList.remove("d-none");
+        // Munculkan pesan error dengan efek fadeIn jQuery dan animasi shake
+        pesanError.fadeIn(400, function() {
+            $(this).addClass("shake-animation");
+        });
         return;
     }
 
@@ -101,11 +105,13 @@ formMatkul.addEventListener("submit", function(event) {
     daftarMatkul.push(matkulBaru);
     renderTabel(daftarMatkul);
 
-    pesanSukses.classList.remove("d-none");
+    // Munculkan pesan sukses dengan efek slideDown jQuery
+    pesanSukses.slideDown(500);
     formMatkul.reset();
     
+    // Sembunyikan pesan sukses setelah 3 detik dengan efek slideUp jQuery
     setTimeout(() => {
-        pesanSukses.classList.add("d-none");
+        pesanSukses.slideUp(500);
     }, 3000);
 });
 
